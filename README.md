@@ -1,10 +1,9 @@
 # sf_cortex_june2025_workshop
 
 🤖 Unified Conversations — Enterprise Chatbot with Snowflake Cortex
-Quick Links
-Connect with me on LinkedIn
 
-Check out our company Blend360
+Quick Links -
+Connect with me on LinkedIn - https://www.linkedin.com/in/anudeep-p-283763232/
 
 📖 Overview
 This project demonstrates a Smart Enterprise Chatbot built on Snowflake's Cortex AI Services, including Cortex Agents, Semantic Models, and Cortex Search Service.
