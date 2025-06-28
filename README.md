@@ -20,8 +20,8 @@ It showcases a unified, enterprise-ready approach for cross-functional data inte
 |:-----|:------|:------------|
 | 📄 Sample PDFs | `HR_Policies.pdf`, `Marketing_Strategy.pdf` | Simulated unstructured content for retrieval |
 | 📊 Sample Data Files | `employee_data.csv`, `sales_data.csv` | Structured departmental datasets |
-| 🧐 Semantic Model YAML | `enterprise_semantic_model.yaml` | Definitions for Cortex Analyst semantic model |
-| 🌐 Streamlit App | `enterprise_chatbot_app.py` | Interactive UI for querying the chatbot |
+| 🧐 Semantic Model YAML | `hr_semantic_model.yaml, sales_semantic_model.yaml, Marketing_semantic_model.yaml` | Definitions for Cortex Analyst semantic model |
+| 🌐 Streamlit App | `streamlit_app.py` | Interactive UI for querying the chatbot |
 | 📋 Documentation | `README.md` | This project guide |
 
 ---
