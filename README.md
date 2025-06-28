@@ -13,25 +13,20 @@ The chatbot enables employees across departments—like HR, Sales, Marketing, an
 
 It showcases a unified, enterprise-ready approach for cross-functional data intelligence and self-service AI.
 
-🗂️ Project Structure
-Type	Files	Description
-📄 Sample PDFs	HR_Policies.pdf, Marketing_Strategy.pdf	Simulated unstructured content for retrieval
-📊 Sample Data Files	employee_data.csv, sales_data.csv	Structured departmental datasets
-🧐 Semantic Model YAML	enterprise_semantic_model.yaml	Definitions for Cortex Analyst semantic model
-🧐 Cortex Agent Setup	cortex_agent_setup.sql	SQL scripts to configure the Agent
-🌐 Streamlit App	enterprise_chatbot_app.py	Interactive UI for querying the chatbot
-📋 Documentation	README.md	This project guide
 
 🧬 Use Case Details
+
 🌟 Problem Statement
 Organizations often struggle to deliver centralized, intelligent, self-service insights when data is spread across structured databases and unstructured documents. Different teams need answers tailored to their department—HR, Sales, Marketing, Finance—all from one unified assistant.
 
 Our chatbot bridges this gap by:
+
 ✅ Combining structured and unstructured data sources
 ✅ Enabling natural language Q&A
 ✅ Serving multiple departments in one interface
 
 🧩 Solution Approach
+
 1️⃣ Structured Data Insights
 Uses Cortex Semantic Models to define table relationships, dimensions, and measures
 
@@ -54,6 +49,7 @@ Streamlit in Snowflake app enables an easy-to-use, enterprise-ready interface
 Supports multiple departments with customizable prompts
 
 🧬 Snowflake Cortex Integration
+
 Cortex Agent
 Routes user questions to either structured data (via Semantic Model) or unstructured content (via Search Service)
 
@@ -88,7 +84,7 @@ Cortex Search:
 
 Upload PDFs and docs to Snowflake stages
 
-Create and train the Cortex Search Service
+Create the Cortex Search Service
 
 App UI:
 
@@ -97,6 +93,7 @@ Deploy enterprise_chatbot_app.py as a Streamlit in Snowflake app
 Provide end-users with the unified chatbot interface
 
 🌟 Highlights
+
 Supports multiple departments with a single assistant
 
 Unified natural language interface for structured + unstructured data
