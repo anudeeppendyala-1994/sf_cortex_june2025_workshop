@@ -21,7 +21,6 @@ It showcases a unified, enterprise-ready approach for cross-functional data inte
 | 📄 Sample PDFs | `HR_Policies.pdf`, `Marketing_Strategy.pdf` | Simulated unstructured content for retrieval |
 | 📊 Sample Data Files | `employee_data.csv`, `sales_data.csv` | Structured departmental datasets |
 | 🧐 Semantic Model YAML | `enterprise_semantic_model.yaml` | Definitions for Cortex Analyst semantic model |
-| 🧐 Cortex Agent Setup | `cortex_agent_setup.sql` | SQL scripts to configure the Agent |
 | 🌐 Streamlit App | `enterprise_chatbot_app.py` | Interactive UI for querying the chatbot |
 | 📋 Documentation | `README.md` | This project guide |
 
@@ -100,14 +99,6 @@ Our chatbot bridges this gap by:
 - Demo-ready with GitHub notebooks and sample datasets
 - Fully self-service architecture with Streamlit in Snowflake
 
----
-
-## 📚 Future Enhancements
-
-- Fine-tuned prompts for department-specific language
-- Integration with Slack or MS Teams as a channel
-- Role-based access control for sensitive data
-- Multilingual support for global teams
 
 ---
 
