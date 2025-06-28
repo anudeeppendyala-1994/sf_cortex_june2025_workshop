@@ -1,0 +1,390 @@
+jname: hr_report
+tables:
+  - name: EMPLOYEES
+    base_table:
+      database: HR_DB
+      schema: RAW
+      table: EMPLOYEES
+    dimensions:
+      - name: EMPLOYEE_ID
+        expr: EMPLOYEE_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: Unique identifier for each employee
+        synonyms:
+          - employee_number
+          - staff_id
+          - personnel_id
+          - worker_id
+      - name: FIRST_NAME
+        expr: FIRST_NAME
+        data_type: VARCHAR
+        sample_values:
+          - John
+          - Sarah
+          - Michael
+        description: Employee's first name
+        synonyms:
+          - given_name
+          - firstname
+          - personal_name
+          - forename
+      - name: LAST_NAME
+        expr: LAST_NAME
+        data_type: VARCHAR
+        sample_values:
+          - Smith
+          - Johnson
+          - Brown
+        description: Employee's last name
+        synonyms:
+          - surname
+          - family_name
+          - lastname
+          - family_surname
+      - name: DEPARTMENT
+        expr: DEPARTMENT
+        data_type: VARCHAR
+        sample_values:
+          - Sales
+          - Marketing
+          - HR
+          - IT
+          - Finance
+        description: Department where the employee works
+        synonyms:
+          - division
+          - unit
+          - section
+          - team
+      - name: POSITION
+        expr: POSITION
+        data_type: VARCHAR
+        sample_values:
+          - Manager
+          - Director
+          - Specialist
+          - Analyst
+          - Coordinator
+        description: Employee's job position or title
+        synonyms:
+          - job_title
+          - role
+          - designation
+          - job_position
+    time_dimensions:
+      - name: HIRE_DATE
+        expr: HIRE_DATE
+        data_type: DATE
+        sample_values:
+          - '2014-01-01'
+          - '2015-01-01'
+          - '2016-01-01'
+        description: Date when the employee was hired
+        synonyms:
+          - start_date
+          - joining_date
+          - employment_date
+          - onboarding_date
+    facts:
+      - name: SALARY
+        expr: SALARY
+        data_type: DECIMAL(10,2)
+        sample_values:
+          - '50000.00'
+          - '100000.00'
+          - '150000.00'
+        description: Employee's annual salary
+        synonyms:
+          - annual_salary
+          - compensation
+          - yearly_pay
+          - remuneration
+      - name: MANAGER_ID
+        expr: MANAGER_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: ID of the employee's manager
+        synonyms:
+          - supervisor_id
+          - reporting_manager
+          - boss_id
+          - lead_id
+    primary_key:
+      columns:
+        - DEPARTMENT
+  - name: DEPARTMENT
+    base_table:
+      database: HR_DB
+      schema: RAW
+      table: DEPARTMENT
+    dimensions:
+      - name: DEPARTMENT_ID
+        expr: DEPARTMENT_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: Unique identifier for each department
+        synonyms:
+          - dept_id
+          - division_id
+          - unit_id
+          - section_id
+      - name: DEPARTMENT_NAME
+        expr: DEPARTMENT_NAME
+        data_type: VARCHAR
+        sample_values:
+          - Sales
+          - Marketing
+          - HR
+        description: Name of the department
+        synonyms:
+          - dept_name
+          - division_name
+          - unit_name
+          - section_name
+    facts:
+      - name: BUDGET
+        expr: BUDGET
+        data_type: DECIMAL(10,2)
+        sample_values:
+          - '1000000.00'
+          - '1500000.00'
+          - '2000000.00'
+        description: Department budget
+        synonyms:
+          - dept_budget
+          - allocation
+          - funds
+          - budget_amount
+  - name: PERFORMANCE_REVIEWS
+    base_table:
+      database: HR_DB
+      schema: RAW
+      table: PERFORMANCE_REVIEWS
+    dimensions:
+      - name: REVIEW_ID
+        expr: REVIEW_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: Unique identifier for each performance review
+        synonyms:
+          - review_number
+          - evaluation_id
+          - assessment_id
+          - review_key
+      - name: EMPLOYEE_ID
+        expr: EMPLOYEE_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: Reference to the employee being reviewed
+        synonyms:
+          - staff_id
+          - personnel_id
+          - worker_id
+          - employee_number
+      - name: COMMENTS
+        expr: COMMENTS
+        data_type: VARCHAR
+        sample_values:
+          - Excellent performance
+          - Good work
+          - Needs improvement
+        description: Comments about the employee's performance
+        synonyms:
+          - feedback
+          - review_comments
+          - assessment_notes
+          - evaluation_comments
+      - name: REVIEWER_ID
+        expr: REVIEWER_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: ID of the person conducting the review
+        synonyms:
+          - evaluator_id
+          - assessor_id
+          - reviewer_number
+          - evaluator_number
+    time_dimensions:
+      - name: REVIEW_DATE
+        expr: REVIEW_DATE
+        data_type: DATE
+        sample_values:
+          - '2024-01-01'
+          - '2024-01-02'
+          - '2024-01-03'
+        description: Date when the review was conducted
+        synonyms:
+          - evaluation_date
+          - assessment_date
+          - review_day
+          - feedback_date
+    facts:
+      - name: RATING
+        expr: RATING
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '3'
+          - '5'
+        description: Numerical rating given in the performance review
+        synonyms:
+          - performance_rating
+          - evaluation_score
+          - assessment_rating
+          - review_score
+    primary_key:
+      columns:
+        - EMPLOYEE_ID
+  - name: DEPARTMENT_STATS
+    base_table:
+      database: HR_DB
+      schema: ANALYTICS
+      table: DEPARTMENT_STATS
+    dimensions:
+      - name: DEPARTMENT
+        expr: DEPARTMENT
+        data_type: VARCHAR(16777216)
+        description: The department within the organization to which the data relates.
+        sample_values:
+          - Sales
+          - HR
+          - Marketing
+        synonyms:
+          - division
+          - team
+          - section
+          - unit
+          - group
+          - branch
+          - sector
+          - category
+    facts:
+      - name: EMPLOYEE_COUNT
+        expr: EMPLOYEE_COUNT
+        data_type: NUMBER(18,0)
+        description: The total number of employees within a department.
+        sample_values:
+          - '20'
+          - '4'
+        synonyms:
+          - headcount
+          - staff_size
+          - personnel_count
+          - employee_total
+          - workforce_size
+          - staff_total
+          - personnel_total
+      - name: AVG_SALARY
+        expr: AVG_SALARY
+        data_type: NUMBER(26,8)
+        description: The average annual salary of employees within each department.
+        sample_values:
+          - '99000.00000000'
+          - '96000.00000000'
+          - '104000.00000000'
+        synonyms:
+          - average_salary
+          - mean_salary
+          - avg_annual_compensation
+          - average_annual_salary
+          - mean_annual_salary
+      - name: MIN_SALARY
+        expr: MIN_SALARY
+        data_type: NUMBER(8,2)
+        description: The minimum salary for each department.
+        sample_values:
+          - '65000.00'
+          - '70000.00'
+          - '130000.00'
+        synonyms:
+          - minimum_salary
+          - lowest_salary
+          - base_salary
+          - starting_salary
+          - minimum_wage
+      - name: MAX_SALARY
+        expr: MAX_SALARY
+        data_type: NUMBER(8,2)
+        description: The maximum salary for each department.
+        sample_values:
+          - '150000.00'
+          - '145000.00'
+          - '140000.00'
+        synonyms:
+          - highest_salary
+          - max_wage
+          - top_salary
+          - maximum_salary
+          - highest_earnings
+          - max_compensation
+      - name: AVG_PERFORMANCE_RATING
+        expr: AVG_PERFORMANCE_RATING
+        data_type: NUMBER(19,6)
+        description: The average performance rating of employees within a department, on a scale of 1 to 5, with 1 being the lowest and 5 being the highest.
+        sample_values:
+          - '3.000000'
+          - '2.500000'
+          - '2.750000'
+        synonyms:
+          - average_rating
+          - average_score
+          - mean_performance
+          - performance_average
+          - average_grade
+          - overall_rating
+relationships:
+  - name: emp_dept
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: DEPARTMENT
+    relationship_columns:
+      - left_column: DEPARTMENT_ID
+        right_column: DEPARTMENT
+    right_table: EMPLOYEES
+  - name: emp_performance
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: EMPLOYEES
+    relationship_columns:
+      - left_column: EMPLOYEE_ID
+        right_column: EMPLOYEE_ID
+    right_table: PERFORMANCE_REVIEWS
+verified_queries:
+  - name: department_salary_stats
+    question: What are the salary statistics by department?
+    use_as_onboarding_question: true
+    sql: SELECT department, COUNT(*) as employee_count, ROUND(AVG(salary), 2) as avg_salary, ROUND(MIN(salary), 2) as min_salary, ROUND(MAX(salary), 2) as max_salary FROM employees GROUP BY department ORDER BY avg_salary DESC
+    verified_by: System
+    verified_at: 1745471344
+  - name: performance_ratings
+    question: What is the distribution of performance ratings across departments?
+    use_as_onboarding_question: true
+    sql: SELECT e.department, p.rating, COUNT(*) as count, ROUND(COUNT(*)::FLOAT / SUM(COUNT(*)) OVER (PARTITION BY e.department) * 100, 2) as percentage FROM employees e JOIN performance_reviews p ON e.employee_id = p.employee_id GROUP BY e.department, p.rating ORDER BY e.department, p.rating
+    verified_by: System
+    verified_at: 1745472033
+  - name: manager_span
+    question: How many employees does each manager supervise?
+    use_as_onboarding_question: true
+    sql: SELECT m.employee_id, m.first_name || ' ' || m.last_name as manager_name, COUNT(e.employee_id) as direct_reports FROM employees m LEFT JOIN employees e ON m.employee_id = e.manager_id WHERE m.employee_id IN (SELECT DISTINCT manager_id FROM employees WHERE manager_id IS NOT NULL) GROUP BY m.employee_id, m.first_name, m.last_name ORDER BY direct_reports DESC
+    verified_by: System
+    verified_at: 1745472213
+custom_instructions: For any percentage or rate calculation, multiply the result by 100. Ensure that all numeric columns are rounded to 2 decimal points in the output.
