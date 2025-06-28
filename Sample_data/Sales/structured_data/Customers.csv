@@ -1,0 +1,11 @@
+CUSTOMER_ID,CUSTOMER_NAME,SEGMENT,REGION,CREATED_AT
+C001,Acme Corporation,VIP,North,2025-06-01 07:17:28.780
+C002,TechSolutions Inc,Premium,South,2025-06-01 07:17:28.780
+C003,Global Industries,Regular,East,2025-06-01 07:17:28.780
+C004,Innovate Systems,Premium,West,2025-06-01 07:17:28.780
+C005,Mega Enterprises,VIP,Central,2025-06-01 07:17:28.780
+C006,Smart Solutions,Regular,North,2025-06-01 07:17:28.780
+C007,Future Tech,Premium,South,2025-06-01 07:17:28.780
+C008,Elite Business,VIP,East,2025-06-01 07:17:28.780
+C009,Dynamic Systems,Regular,West,2025-06-01 07:17:28.780
+C010,Prime Industries,Premium,Central,2025-06-01 07:17:28.780
