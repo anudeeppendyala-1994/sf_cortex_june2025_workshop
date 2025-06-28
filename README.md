@@ -6,6 +6,7 @@ Quick Links -
 Connect with me on LinkedIn - https://www.linkedin.com/in/anudeep-p-283763232/
 
 📖 Overview
+
 This project demonstrates a Smart Enterprise Chatbot built on Snowflake's Cortex AI Services, including Cortex Agents, Semantic Models, and Cortex Search Service.
 
 The chatbot enables employees across departments—like HR, Sales, Marketing, and Finance—to ask questions in natural language and retrieve insights seamlessly from both structured data (Snowflake tables) and unstructured data (documents, PDFs, knowledge bases).
