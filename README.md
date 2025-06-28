@@ -1,7 +1,7 @@
 # 🤖 Unified Conversations — Enterprise Chatbot with Snowflake Cortex
 
 ## Quick Links
-* Connect with me on [LinkedIn]([https://www.linkedin.com/](https://www.linkedin.com/in/anudeep-p-283763232/))
+* Connect with me on [LinkedIn]([https://www.linkedin.com/in/anudeep-p-283763232/])
 
 ---
 
