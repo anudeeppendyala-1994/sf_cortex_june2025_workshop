@@ -1,0 +1,346 @@
+name: sales_report
+tables:
+  - name: SALES_TRANSACTIONS
+    base_table:
+      database: SALES_DB
+      schema: RAW
+      table: SALES_TRANSACTIONS
+    dimensions:
+      - name: TRANSACTION_ID
+        expr: TRANSACTION_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: Unique identifier for each sales transaction
+        synonyms:
+          - sale_id
+          - transaction_number
+          - order_id
+          - sale_number
+      - name: CUSTOMER_ID
+        expr: CUSTOMER_ID
+        data_type: VARCHAR
+        sample_values:
+          - C001
+          - C002
+          - C003
+        description: Unique identifier for each customer
+        synonyms:
+          - customer_number
+          - client_id
+          - buyer_id
+          - customer_code
+      - name: PRODUCT_ID
+        expr: PRODUCT_ID
+        data_type: VARCHAR
+        sample_values:
+          - P001
+          - P002
+          - P003
+        description: Unique identifier for each product
+        synonyms:
+          - product_number
+          - item_id
+          - product_code
+          - sku
+      - name: REGION
+        expr: REGION
+        data_type: VARCHAR
+        sample_values:
+          - North
+          - South
+          - East
+          - West
+          - Central
+        description: Geographic region where the sale occurred
+        synonyms:
+          - territory
+          - area
+          - zone
+          - location
+      - name: SALES_REP
+        expr: SALES_REP
+        data_type: VARCHAR
+        sample_values:
+          - John Smith
+          - Sarah Johnson
+          - Michael Brown
+        description: Name of the sales representative who made the sale
+        synonyms:
+          - representative
+          - rep
+          - salesperson
+          - agent
+      - name: CHANNEL
+        expr: CHANNEL
+        data_type: VARCHAR
+        sample_values:
+          - Online
+          - Store
+          - Phone
+          - Partner
+        description: Sales channel through which the transaction occurred
+        synonyms:
+          - sales_channel
+          - distribution_channel
+          - outlet
+          - platform
+    time_dimensions:
+      - name: SALE_DATE
+        expr: SALE_DATE
+        data_type: DATE
+        sample_values:
+          - '2024-01-01'
+          - '2024-01-02'
+          - '2024-01-03'
+        description: Date when the sale occurred
+        synonyms:
+          - transaction_date
+          - purchase_date
+          - order_date
+          - sale_day
+    facts:
+      - name: AMOUNT
+        expr: AMOUNT
+        data_type: DECIMAL(10,2)
+        sample_values:
+          - '100.00'
+          - '500.00'
+          - '1000.00'
+        description: Total amount of the sale in currency units
+        synonyms:
+          - sale_amount
+          - transaction_amount
+          - total_amount
+          - revenue
+    primary_key:
+      columns:
+        - PRODUCT_ID
+        - CUSTOMER_ID
+  - name: CUSTOMERS
+    base_table:
+      database: SALES_DB
+      schema: RAW
+      table: CUSTOMERS
+    dimensions:
+      - name: CUSTOMER_ID
+        expr: CUSTOMER_ID
+        data_type: VARCHAR
+        sample_values:
+          - C001
+          - C002
+          - C003
+        description: Unique identifier for the customer
+        synonyms:
+          - customer_number
+          - client_id
+          - buyer_id
+      - name: CUSTOMER_NAME
+        expr: CUSTOMER_NAME
+        data_type: VARCHAR
+        sample_values:
+          - ABC Corp
+          - XYZ Ltd
+          - 123 Industries
+        description: Name of the customer
+        synonyms:
+          - client_name
+          - buyer_name
+          - company_name
+      - name: SEGMENT
+        expr: SEGMENT
+        data_type: VARCHAR
+        sample_values:
+          - VIP
+          - Regular
+          - Premium
+        description: Customer segment classification
+        synonyms:
+          - customer_type
+          - client_segment
+          - buyer_category
+          - customer_tier
+    description: ''
+    synonyms:
+      - clients
+  - name: PRODUCTS
+    base_table:
+      database: SALES_DB
+      schema: RAW
+      table: PRODUCTS
+    dimensions:
+      - name: PRODUCT_ID
+        expr: PRODUCT_ID
+        data_type: VARCHAR(16777216)
+        description: Unique identifier for each product in the catalog.
+        sample_values:
+          - P001
+          - P003
+          - P002
+        synonyms:
+          - product_key
+          - product_code
+          - item_id
+          - product_number
+          - sku
+          - product_identifier
+      - name: PRODUCT_NAME
+        expr: PRODUCT_NAME
+        data_type: VARCHAR(16777216)
+        description: The PRODUCT_NAME column contains the names of the various products offered by the company, providing a descriptive label for each item in the product catalog.
+        sample_values:
+          - Professional Laptop
+          - Wireless Mouse
+          - 4K Monitor
+        synonyms:
+          - item_name
+          - product_title
+          - item_title
+          - product_description
+          - product_label
+          - item_label
+      - name: CATEGORY
+        expr: CATEGORY
+        data_type: VARCHAR(16777216)
+        description: 'The category of the product, which can be one of the following: Electronics (e.g. computers, phones, tablets), Accessories (e.g. cases, headphones, chargers), or Software (e.g. operating systems, applications, games).'
+        sample_values:
+          - Electronics
+          - Accessories
+          - Software
+        synonyms:
+          - type
+          - classification
+          - group
+          - genre
+          - kind
+          - class
+          - product_type
+          - product_group
+          - product_category
+          - product_class
+      - name: FILENAME
+        expr: FILENAME
+        data_type: VARCHAR(16777216)
+        description: The name of the product file.
+        sample_values:
+          - products.csv
+        synonyms:
+          - file_name
+          - document_name
+          - file_title
+          - document_title
+          - file_identifier
+          - file_label
+    time_dimensions:
+      - name: CREATED_AT
+        expr: CREATED_AT
+        data_type: TIMESTAMP_NTZ(9)
+        description: Date and time when the product was created.
+        sample_values:
+          - 2025-06-01T07:17:10.200+0000
+        synonyms:
+          - created_date
+          - creation_time
+          - date_created
+          - timestamp
+          - insertion_time
+          - record_created_at
+          - entry_date
+          - registration_date
+          - added_at
+      - name: FILE_LAST_MODIFIED
+        expr: FILE_LAST_MODIFIED
+        data_type: TIMESTAMP_NTZ(9)
+        description: The date and time when the product file was last modified.
+        sample_values:
+          - 2025-06-20T14:46:46.000+0000
+        synonyms:
+          - file_last_updated
+          - last_file_modification
+          - file_modification_date
+          - file_last_changed
+          - last_file_update
+          - file_revision_date
+      - name: FILE_SCAN_TIME
+        expr: FILE_SCAN_TIME
+        data_type: TIMESTAMP_LTZ(9)
+        description: The date and time when the file was last scanned.
+        sample_values:
+          - 2025-06-20T14:50:24.822+0000
+        synonyms:
+          - file_scan_timestamp
+          - file_scan_datetime
+          - file_discovery_time
+          - file_detection_time
+          - file_identification_timestamp
+          - file_scan_date
+    facts:
+      - name: PRICE
+        expr: PRICE
+        data_type: NUMBER(6,2)
+        description: The price of each product in the catalog, representing the amount that customers must pay to purchase the item.
+        sample_values:
+          - '1299.99'
+          - '49.99'
+          - '499.99'
+        synonyms:
+          - cost
+          - amount
+          - value
+          - rate
+          - charge
+          - fee
+          - tariff
+          - expense
+          - expenditure
+relationships:
+  - name: Sales_products
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: PRODUCTS
+    relationship_columns:
+      - left_column: PRODUCT_ID
+        right_column: PRODUCT_ID
+    right_table: SALES_TRANSACTIONS
+  - name: Sales_transactions_customers
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: CUSTOMERS
+    relationship_columns:
+      - left_column: CUSTOMER_ID
+        right_column: CUSTOMER_ID
+    right_table: SALES_TRANSACTIONS
+verified_queries:
+  - name: sales_by_region
+    question: What is the total sales amount by region?
+    use_as_onboarding_question: true
+    sql: SELECT region, SUM(amount) as total_sales FROM sales_transactions GROUP BY region ORDER BY total_sales DESC
+    verified_by: System
+    verified_at: 1745471344
+  - name: top_performing_sales_reps
+    question: Who are the top 5 performing sales representatives by total sales?
+    use_as_onboarding_question: true
+    sql: SELECT sales_rep, SUM(amount) as total_sales FROM sales_transactions GROUP BY sales_rep ORDER BY total_sales DESC LIMIT 5
+    verified_by: System
+    verified_at: 1745472033
+  - name: channel_performance
+    question: What is the sales performance by channel?
+    use_as_onboarding_question: true
+    sql: SELECT channel, COUNT(*) as transaction_count, SUM(amount) as total_sales FROM sales_transactions GROUP BY channel ORDER BY total_sales DESC
+    verified_by: System
+    verified_at: 1745472213
+  - name: Products_within_category
+    question: total number of products in each category
+    use_as_onboarding_question: false
+    sql: SELECT category, COUNT(DISTINCT product_id) AS product_count FROM products GROUP BY category ORDER BY product_count DESC NULLS LAST
+    verified_by: Anudeep Pendyala
+    verified_at: 1750585694
+  - name: sales_by_products
+    question: What is the sales distribution among products
+    use_as_onboarding_question: false
+    sql: WITH product_sales AS (SELECT p.product_name, SUM(s.amount) AS total_sales FROM sales_transactions AS s INNER JOIN products AS p ON s.product_id = p.product_id GROUP BY p.product_name), total AS (SELECT SUM(total_sales) AS grand_total FROM product_sales) SELECT ps.product_name, ROUND(ps.total_sales, 2) AS total_sales, ROUND(100.0 * ps.total_sales / NULLIF(t.grand_total, 0), 2) AS sales_percentage FROM product_sales AS ps CROSS JOIN total AS t ORDER BY ps.total_sales DESC NULLS LAST
+    verified_by: Anudeep Pendyala
+    verified_at: 1750587098
+custom_instructions: For any percentage or rate calculation, multiply the result by 100. Ensure that all numeric columns are rounded to 2 decimal points in the output.
