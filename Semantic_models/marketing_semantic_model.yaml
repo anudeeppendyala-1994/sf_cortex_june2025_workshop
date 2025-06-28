@@ -1,0 +1,251 @@
+name: marketing_report
+tables:
+  - name: CAMPAIGNS
+    base_table:
+      database: MARKETING_DB
+      schema: RAW
+      table: CAMPAIGNS
+    dimensions:
+      - name: CAMPAIGN_ID
+        expr: CAMPAIGN_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: Unique identifier for each marketing campaign
+        synonyms:
+          - campaign_number
+          - promotion_id
+          - marketing_id
+          - campaign_key
+      - name: CAMPAIGN_NAME
+        expr: CAMPAIGN_NAME
+        data_type: VARCHAR
+        sample_values:
+          - Summer Sale 1
+          - Holiday Special 2
+          - New Product Launch 3
+        description: Name of the marketing campaign
+        synonyms:
+          - promotion_name
+          - campaign_title
+          - marketing_name
+          - promotion_title
+      - name: CHANNEL
+        expr: CHANNEL
+        data_type: VARCHAR
+        sample_values:
+          - Social Media
+          - Email
+          - TV
+          - Radio
+          - Print
+        description: Marketing channel used for the campaign
+        synonyms:
+          - marketing_channel
+          - platform
+          - medium
+          - outlet
+      - name: STATUS
+        expr: STATUS
+        data_type: VARCHAR
+        sample_values:
+          - Active
+          - Planned
+          - Completed
+          - Paused
+          - Draft
+        description: Current status of the campaign
+        synonyms:
+          - campaign_status
+          - state
+          - condition
+          - phase
+      - name: TARGET_AUDIENCE
+        expr: TARGET_AUDIENCE
+        data_type: VARCHAR
+        sample_values:
+          - All
+          - VIP
+          - New
+          - Returning
+          - Lapsed
+        description: Target audience segment for the campaign
+        synonyms:
+          - audience
+          - segment
+          - demographic
+          - target_group
+    time_dimensions:
+      - name: START_DATE
+        expr: START_DATE
+        data_type: DATE
+        sample_values:
+          - '2024-01-01'
+          - '2024-01-02'
+          - '2024-01-03'
+        description: Start date of the campaign
+        synonyms:
+          - launch_date
+          - begin_date
+          - campaign_start
+          - initiation_date
+      - name: END_DATE
+        expr: END_DATE
+        data_type: DATE
+        sample_values:
+          - '2024-01-31'
+          - '2024-02-01'
+          - '2024-02-02'
+        description: End date of the campaign
+        synonyms:
+          - completion_date
+          - finish_date
+          - campaign_end
+          - termination_date
+    facts:
+      - name: BUDGET
+        expr: BUDGET
+        data_type: DECIMAL(10,2)
+        sample_values:
+          - '10000.00'
+          - '50000.00'
+          - '100000.00'
+        description: Budget allocated for the campaign
+        synonyms:
+          - campaign_budget
+          - allocated_amount
+          - spending_limit
+          - budget_amount
+    primary_key:
+      columns:
+        - CAMPAIGN_ID
+  - name: CAMPAIGN_METRICS
+    base_table:
+      database: MARKETING_DB
+      schema: RAW
+      table: CAMPAIGN_METRICS
+    dimensions:
+      - name: METRIC_ID
+        expr: METRIC_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: Unique identifier for each metric record
+        synonyms:
+          - metric_number
+          - measurement_id
+          - performance_id
+          - metric_key
+      - name: CAMPAIGN_ID
+        expr: CAMPAIGN_ID
+        data_type: NUMBER
+        sample_values:
+          - '1'
+          - '2'
+          - '3'
+        description: Reference to the campaign this metric belongs to
+        synonyms:
+          - campaign_number
+          - promotion_id
+          - marketing_id
+          - campaign_key
+    time_dimensions:
+      - name: METRIC_DATE
+        expr: METRIC_DATE
+        data_type: DATE
+        sample_values:
+          - '2024-01-01'
+          - '2024-01-02'
+          - '2024-01-03'
+        description: Date when the metrics were recorded
+        synonyms:
+          - measurement_date
+          - performance_date
+          - record_date
+          - tracking_date
+    facts:
+      - name: IMPRESSIONS
+        expr: IMPRESSIONS
+        data_type: NUMBER
+        sample_values:
+          - '1000'
+          - '5000'
+          - '10000'
+        description: Number of times the campaign was viewed
+        synonyms:
+          - views
+          - exposures
+          - reach
+          - display_count
+      - name: CLICKS
+        expr: CLICKS
+        data_type: NUMBER
+        sample_values:
+          - '100'
+          - '500'
+          - '1000'
+        description: Number of clicks on campaign elements
+        synonyms:
+          - click_throughs
+          - interactions
+          - click_count
+          - engagement_count
+      - name: CONVERSIONS
+        expr: CONVERSIONS
+        data_type: NUMBER
+        sample_values:
+          - '10'
+          - '50'
+          - '100'
+        description: Number of successful conversions from the campaign
+        synonyms:
+          - successful_conversions
+          - conversion_count
+          - completed_actions
+          - goal_achievements
+      - name: SPEND
+        expr: SPEND
+        data_type: DECIMAL(10,2)
+        sample_values:
+          - '1000.00'
+          - '5000.00'
+          - '10000.00'
+        description: Amount spent on the campaign
+        synonyms:
+          - expenditure
+          - cost
+          - spending
+          - investment
+relationships:
+  - name: campgn
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: CAMPAIGN_METRICS
+    relationship_columns:
+      - left_column: CAMPAIGN_ID
+        right_column: CAMPAIGN_ID
+    right_table: CAMPAIGNS
+verified_queries:
+  - name: campaign_performance
+    question: What is the performance of each campaign in terms of impressions, clicks, and conversions?
+    use_as_onboarding_question: true
+    sql: SELECT c.campaign_name, SUM(m.impressions) as total_impressions, SUM(m.clicks) as total_clicks, SUM(m.conversions) as total_conversions FROM campaigns c JOIN campaign_metrics m ON c.campaign_id = m.campaign_id GROUP BY c.campaign_name ORDER BY total_conversions DESC
+    verified_by: System
+    verified_at: 1745471344
+  - name: channel_effectiveness
+    question: Which marketing channel has the highest conversion rate?
+    use_as_onboarding_question: true
+    sql: SELECT c.channel, SUM(m.impressions) as total_impressions, SUM(m.conversions) as total_conversions, ROUND(SUM(m.conversions)::FLOAT / NULLIF(SUM(m.impressions), 0) * 100, 2) as conversion_rate FROM campaigns c JOIN campaign_metrics m ON c.campaign_id = m.campaign_id GROUP BY c.channel ORDER BY conversion_rate DESC
+    verified_by: System
+    verified_at: 1745472033
+  - name: budget_utilization
+    question: How much of the campaign budget has been spent?
+    use_as_onboarding_question: true
+    sql: SELECT c.campaign_name, c.budget, SUM(m.spend) as total_spend, ROUND(SUM(m.spend)::FLOAT / NULLIF(c.budget, 0) * 100, 2) as budget_utilization FROM campaigns c JOIN campaign_metrics m ON c.campaign_id = m.campaign_id GROUP BY c.campaign_name, c.budget ORDER BY budget_utilization DESC
+    verified_by: System
+    verified_at: 1745472213
+custom_instructions: For any percentage or rate calculation, multiply the result by 100. Ensure that all numeric columns are rounded to 2 decimal points in the output.
