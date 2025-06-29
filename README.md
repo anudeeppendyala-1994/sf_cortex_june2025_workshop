@@ -86,7 +86,7 @@ Our chatbot bridges this gap by:
    - Upload PDFs and docs to Snowflake stages
    - Create and train the Cortex Search Service
 5. **App UI**:
-   - Deploy `enterprise_chatbot_app.py` as a Streamlit in Snowflake app
+   - Deploy `streamlit_app.py` as a Streamlit in Snowflake app
    - Provide end-users with the unified chatbot interface
 
 ---
